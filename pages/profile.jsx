@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col } from 'reactstrap';
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0';
+import { Button } from '@mantine/core';
 
 import Loading from '../components/Loading';
 import ErrorMessage from '../components/ErrorMessage';
 import Highlight from '../components/Highlight';
+import SummonerForm from '../components/SummonerForm';
 
 function Profile() {
   const { user, isLoading } = useUser();
+  const [summoner, setSummoner] = useState();
 
   return (
     <>
@@ -34,6 +37,14 @@ function Profile() {
           <Row data-testid="profile-json">
             <Highlight>{JSON.stringify(user, null, 2)}</Highlight>
           </Row>
+          <SummonerForm setSummoner={setSummoner}/>
+          <br/>
+          { summoner &&
+            <>
+              <Highlight>{JSON.stringify(summoner, null, 2)}</Highlight>
+              <Button color="green">Lock in</Button>
+            </>
+          }
         </>
       )}
     </>
