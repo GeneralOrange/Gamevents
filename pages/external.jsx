@@ -13,7 +13,19 @@ function External() {
     setState(previous => ({ ...previous, isLoading: true }))
 
     try {
-      const response = await fetch('/api/shows');
+      const response = await fetch('/api/updateUserSummoner', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          summoner: {
+            id: 'fdasfdasfdsafczxc',
+            name: 'captain cookie',
+            puuid: '3S-0fdjsklfdasfdzssc'
+          }
+        })
+      });
       const data = await response.json();
 
       setState(previous => ({ ...previous, response: data, error: undefined }))
@@ -24,7 +36,7 @@ function External() {
     }
   };
 
-  const handle = (event, fn) => {
+  const handle = async (event, fn) => {
     event.preventDefault();
     fn();
   };

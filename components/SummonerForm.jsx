@@ -2,7 +2,7 @@ import React from 'react';
 import { TextInput, Checkbox, Button, Group, Box } from '@mantine/core';
 import { useForm } from '@mantine/form';
 
-export default function SummonerForm({ setSummoner }) {
+export default function SummonerForm({ setState }) {
   const form = useForm({
     initialValues: {
         summonerName: '',
@@ -23,7 +23,7 @@ export default function SummonerForm({ setSummoner }) {
       body: JSON.stringify(values)
     })
     const data = await res.json();
-    setSummoner(data);
+    setState(previous => ({...previous, summoner: data}));
   }
   
   return (
@@ -43,7 +43,7 @@ export default function SummonerForm({ setSummoner }) {
         />
 
         <Group position="left" mt="md">
-          <Button type="submit">Submit</Button>
+          <Button type="submit">Find summoner</Button>
         </Group>
       </form>
     </Box>
